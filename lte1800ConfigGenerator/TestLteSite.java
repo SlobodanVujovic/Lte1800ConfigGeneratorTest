@@ -12,9 +12,9 @@ public class TestLteSite {
 	@Before
 	public void setUp() {
 		allLteSites = new AllLteSites();
-		allLteSites.inputReader.setRadioInput("C:\\CG input test\\Radio.xlsx");
-		allLteSites.inputReader.setTransmissionInput("C:\\CG input test\\Transmission.xlsx");
-		allLteSites.inputReader.setConfigInput("C:\\CG input test\\Config input.xlsx");
+		allLteSites.inputReader.setRadioInput("C:\\CG input test\\Radio test.xlsx");
+		allLteSites.inputReader.setTransmissionInput("C:\\CG input test\\Transmission test.xlsx");
+		allLteSites.inputReader.setConfigInput("C:\\CG input test\\Config input test.xlsx");
 		listOfAllSites = allLteSites.listOfAllSites;
 
 		allLteSites.createListOfAllSites();

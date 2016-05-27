@@ -30,9 +30,9 @@ public class TestAllConfigFiles {
 	@Before
 	public void setUp() {
 		allConfigFiles = new AllConfigFiles();
-		allConfigFiles.allLteSites.inputReader.setRadioInput("C:\\CG input test\\Radio.xlsx");
-		allConfigFiles.allLteSites.inputReader.setTransmissionInput("C:\\CG input test\\Transmission.xlsx");
-		allConfigFiles.allLteSites.inputReader.setConfigInput("C:\\CG input test\\Config input.xlsx");
+		allConfigFiles.allLteSites.inputReader.setRadioInput("C:\\CG input test\\Radio test.xlsx");
+		allConfigFiles.allLteSites.inputReader.setTransmissionInput("C:\\CG input test\\Transmission test.xlsx");
+		allConfigFiles.allLteSites.inputReader.setConfigInput("C:\\CG input test\\Config input test.xlsx");
 		allConfigFiles.createConfigFile();
 	}
 
@@ -1051,11 +1051,146 @@ public class TestAllConfigFiles {
 		}
 	}
 
+	// @Ignore
+	@Test
+	public void testEditLcell_AnttenaPorts() {
+		LteSite lteSite;
+		int numberOfSite = 0;
+		Document xmlDocument = null;
+		for (File configFile : allConfigFiles.listOfAllConfigFiles) {
+			lteSite = allConfigFiles.listOfAllSites.get(numberOfSite++);
+			DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
+			builderFactory.setIgnoringComments(true);
+			try {
+				DocumentBuilder builder = builderFactory.newDocumentBuilder();
+				xmlDocument = builder.parse(configFile);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			XPathFactory xPathFactory = XPathFactory.newInstance();
+			XPath xPath = xPathFactory.newXPath();
+			XPathExpression expression;
+			Object result = null;
+			try {
+				expression = xPath.compile("//cmData/managedObject[@class=\"LCELL\"]/list/item");
+				result = expression.evaluate(xmlDocument, XPathConstants.NODESET);
+			} catch (XPathExpressionException e) {
+				e.printStackTrace();
+			}
+			String[] antPort = new String[] { "1", "3", "7", "9", "13", "15" };
+			if (lteSite.hardware.get("cell1Ports").equals("1-1")) {
+				antPort[0] = "1";
+				antPort[1] = "7";
+				antPort[2] = "3";
+				antPort[3] = "9";
+				antPort[4] = "5";
+				antPort[5] = "11";
+			}
+			NodeList itemNodeList = (NodeList) result;
+			for (int i = 0; i < itemNodeList.getLength(); i++) {
+				Node itemNode = itemNodeList.item(i);
+				NodeList childNodeList = itemNode.getChildNodes();
+				for (int j = 0; j < childNodeList.getLength(); j++) {
+					Node childNode = childNodeList.item(j);
+					if (childNode.getNodeName().equals("p")) {
+						NamedNodeMap pNodeAttributes = childNode.getAttributes();
+						Node pNameNodeAttribute = pNodeAttributes.getNamedItem("name");
+						String pNameNodeValue = pNameNodeAttribute.getNodeValue();
+						if (pNameNodeValue.equals("antlId")) {
+
+							assertEquals(antPort[i], childNode.getTextContent());
+
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// @Ignore
+	@Test
+	public void testIsFtifUsed() {
+		LteSite lteSite;
+		int numberOfSite = 0;
+		Document xmlDocument = null;
+		for (File configFile : allConfigFiles.listOfAllConfigFiles) {
+			lteSite = allConfigFiles.listOfAllSites.get(numberOfSite++);
+			DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
+			builderFactory.setIgnoringComments(true);
+			try {
+				DocumentBuilder builder = builderFactory.newDocumentBuilder();
+				xmlDocument = builder.parse(configFile);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			XPathFactory xPathFactory = XPathFactory.newInstance();
+			XPath xPath = xPathFactory.newXPath();
+			XPathExpression expressionOfPpttNode, expressionOfEthlkNode;
+			Object resultOfPpttNode = null, resultOfEthlkNode = null;
+			boolean ftifIsUsed = false;
+			String ftifIsUsedStr = lteSite.hardware.get("ftif");
+			if (ftifIsUsedStr.equals("DA")) {
+				ftifIsUsed = true;
+			}
+			if (ftifIsUsed) {
+				try {
+					expressionOfPpttNode = xPath.compile("//cmData/managedObject[@class=\"PPTT\"]");
+					expressionOfEthlkNode = xPath
+							.compile("//cmData/managedObject[@class=\"ETHLK\" and contains(@distName,'ETHLK-1-')]");
+					resultOfPpttNode = expressionOfPpttNode.evaluate(xmlDocument, XPathConstants.NODESET);
+					resultOfEthlkNode = expressionOfEthlkNode.evaluate(xmlDocument, XPathConstants.NODESET);
+				} catch (XPathExpressionException e) {
+					e.printStackTrace();
+				}
+				NodeList ppttNodeList = (NodeList) resultOfPpttNode;
+				NodeList ethlkNodeList = (NodeList) resultOfEthlkNode;
+
+				assertEquals(8, ppttNodeList.getLength());
+				assertEquals(4, ethlkNodeList.getLength());
+			}
+		}
+	}
+
+	// @Ignore
+	@Test
+	public void testEditNumberOfAntenna() {
+		LteSite lteSite;
+		int numberOfSite = 0;
+		Document xmlDocument = null;
+		for (File configFile : allConfigFiles.listOfAllConfigFiles) {
+			lteSite = allConfigFiles.listOfAllSites.get(numberOfSite++);
+			DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
+			builderFactory.setIgnoringComments(true);
+			try {
+				DocumentBuilder builder = builderFactory.newDocumentBuilder();
+				xmlDocument = builder.parse(configFile);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			XPathFactory xPathFactory = XPathFactory.newInstance();
+			XPath xPath = xPathFactory.newXPath();
+			XPathExpression expression;
+			Object result = null;
+			try {
+				expression = xPath.compile("//cmData/managedObject[@class=\"ANTL\"]");
+				result = expression.evaluate(xmlDocument, XPathConstants.NODESET);
+			} catch (XPathExpressionException e) {
+				e.printStackTrace();
+			}
+			NodeList antlNodeList = (NodeList) result;
+			String numberOfRfModules = lteSite.hardware.get("numberOfRfModules");
+			int numberOfAntennas = 6 * Integer.valueOf(numberOfRfModules);
+
+			assertEquals(numberOfAntennas, antlNodeList.getLength());
+		}
+	}
+
 	@After
 	public void clean() {
 		File outputDir = new File("C:\\CG output");
 		for (File file : outputDir.listFiles()) {
-			if (!file.getPath().equals("C:\\CG output\\Commissioning_KKLLL_YYYYMMDD.xml")) {
+			if (!file.getPath().equals("C:\\CG output\\Commissioning_KKLLL_YYYYMMDD.xml")
+					& !file.getPath().equals("C:\\CG output\\FTIF_Config.xml")) {
 				file.delete();
 			}
 		}

@@ -13,9 +13,9 @@ public class TestInputReader {
 	@Before
 	public void setUp() {
 		allLteSites = new AllLteSites();
-		allLteSites.inputReader.setRadioInput("C:\\CG input test\\Radio.xlsx");
-		allLteSites.inputReader.setTransmissionInput("C:\\CG input test\\Transmission.xlsx");
-		allLteSites.inputReader.setConfigInput("C:\\CG input test\\Config input.xlsx");
+		allLteSites.inputReader.setRadioInput("C:\\CG input test\\Radio test.xlsx");
+		allLteSites.inputReader.setTransmissionInput("C:\\CG input test\\Transmission test.xlsx");
+		allLteSites.inputReader.setConfigInput("C:\\CG input test\\Config input test.xlsx");
 		listOfAllSites = allLteSites.listOfAllSites;
 	}
 
@@ -28,13 +28,13 @@ public class TestInputReader {
 		assertEquals("SD_Smederevo", listOfAllSites.get(0).generalInfo.get("eNodeBName"));
 		assertEquals("1178", listOfAllSites.get(0).transmission.get("cuVlanId"));
 		assertEquals("10.85.163.66", listOfAllSites.get(0).transmission.get("cuDestIp"));
-		assertEquals("10.85.163.64", listOfAllSites.get(0).transmission.get("cuSubnet"));
+		assertEquals("255.255.255.224", listOfAllSites.get(0).transmission.get("cuSubnet"));
 		assertEquals("27", listOfAllSites.get(0).transmission.get("cuSubnetSize"));
 		assertEquals("10.85.163.65", listOfAllSites.get(0).transmission.get("cuGwIp"));
 		assertEquals("10.85.145.216", listOfAllSites.get(0).transmission.get("mIp"));
 		assertEquals("52", listOfAllSites.get(0).transmission.get("sVlanId"));
 		assertEquals("10.85.171.66", listOfAllSites.get(0).transmission.get("sIp"));
-		assertEquals("10.85.171.64", listOfAllSites.get(0).transmission.get("sSubnet"));
+		assertEquals("255.255.255.224", listOfAllSites.get(0).transmission.get("sSubnet"));
 		assertEquals("27", listOfAllSites.get(0).transmission.get("sSubnetSize"));
 		assertEquals("10.85.171.65", listOfAllSites.get(0).transmission.get("sGwIp"));
 		assertEquals("10.245.228.60", listOfAllSites.get(0).transmission.get("topIp"));
@@ -44,13 +44,13 @@ public class TestInputReader {
 		assertEquals("SD_Smederevo2", listOfAllSites.get(1).generalInfo.get("eNodeBName"));
 		assertEquals("1178", listOfAllSites.get(1).transmission.get("cuVlanId"));
 		assertEquals("10.85.163.67", listOfAllSites.get(1).transmission.get("cuDestIp"));
-		assertEquals("10.85.163.64", listOfAllSites.get(1).transmission.get("cuSubnet"));
+		assertEquals("255.255.255.224", listOfAllSites.get(1).transmission.get("cuSubnet"));
 		assertEquals("27", listOfAllSites.get(1).transmission.get("cuSubnetSize"));
 		assertEquals("10.85.163.65", listOfAllSites.get(1).transmission.get("cuGwIp"));
 		assertEquals("10.85.145.217", listOfAllSites.get(1).transmission.get("mIp"));
 		assertEquals("52", listOfAllSites.get(1).transmission.get("sVlanId"));
 		assertEquals("10.85.171.67", listOfAllSites.get(1).transmission.get("sIp"));
-		assertEquals("10.85.171.64", listOfAllSites.get(1).transmission.get("sSubnet"));
+		assertEquals("255.255.255.224", listOfAllSites.get(1).transmission.get("sSubnet"));
 		assertEquals("27", listOfAllSites.get(1).transmission.get("sSubnetSize"));
 		assertEquals("10.85.171.65", listOfAllSites.get(1).transmission.get("sGwIp"));
 		assertEquals("10.245.228.60", listOfAllSites.get(1).transmission.get("topIp"));
@@ -60,13 +60,13 @@ public class TestInputReader {
 		assertEquals("SA_Sabac", listOfAllSites.get(2).generalInfo.get("eNodeBName"));
 		assertEquals("1164", listOfAllSites.get(2).transmission.get("cuVlanId"));
 		assertEquals("10.85.165.146", listOfAllSites.get(2).transmission.get("cuDestIp"));
-		assertEquals("10.85.165.144", listOfAllSites.get(2).transmission.get("cuSubnet"));
+		assertEquals("255.255.255.240", listOfAllSites.get(2).transmission.get("cuSubnet"));
 		assertEquals("28", listOfAllSites.get(2).transmission.get("cuSubnetSize"));
 		assertEquals("10.85.165.145", listOfAllSites.get(2).transmission.get("cuGwIp"));
 		assertEquals("10.85.145.179", listOfAllSites.get(2).transmission.get("mIp"));
 		assertEquals("50", listOfAllSites.get(2).transmission.get("sVlanId"));
 		assertEquals("10.85.173.146", listOfAllSites.get(2).transmission.get("sIp"));
-		assertEquals("10.85.173.144", listOfAllSites.get(2).transmission.get("sSubnet"));
+		assertEquals("255.255.255.240", listOfAllSites.get(2).transmission.get("sSubnet"));
 		assertEquals("28", listOfAllSites.get(2).transmission.get("sSubnetSize"));
 		assertEquals("10.85.173.145", listOfAllSites.get(2).transmission.get("sGwIp"));
 		assertEquals("10.245.228.60", listOfAllSites.get(2).transmission.get("topIp"));
@@ -133,6 +133,9 @@ public class TestInputReader {
 		assertEquals("", lteSite0.hardware.get("cell4Ports"));
 		assertEquals("DA", lteSite0.hardware.get("rf1IsShared"));
 		assertEquals("DA", lteSite0.hardware.get("rf2IsShared"));
+		assertEquals("NE", lteSite0.hardware.get("ftif"));
+		assertEquals("", lteSite0.hardware.get("gsmPort"));
+		assertEquals("", lteSite0.hardware.get("umtsPort"));
 		assertEquals("", lteSite0.hardware.get("rf3IsShared"));
 		assertEquals("", lteSite0.hardware.get("rf4IsShared"));
 		assertEquals("3", lteSite1.hardware.get("numberOfRfModules"));
@@ -145,6 +148,9 @@ public class TestInputReader {
 		assertEquals("DA", lteSite1.hardware.get("rf2IsShared"));
 		assertEquals("DA", lteSite1.hardware.get("rf3IsShared"));
 		assertEquals("", lteSite1.hardware.get("rf4IsShared"));
+		assertEquals("NE", lteSite1.hardware.get("ftif"));
+		assertEquals("", lteSite1.hardware.get("gsmPort"));
+		assertEquals("", lteSite1.hardware.get("umtsPort"));
 		assertEquals("4", lteSite2.hardware.get("numberOfRfModules"));
 		assertEquals("0", lteSite2.hardware.get("numberOfSharedRfModules"));
 		assertEquals("1-3", lteSite2.hardware.get("cell1Ports"));
@@ -155,6 +161,9 @@ public class TestInputReader {
 		assertEquals("NE", lteSite2.hardware.get("rf2IsShared"));
 		assertEquals("NE", lteSite2.hardware.get("rf3IsShared"));
 		assertEquals("NE", lteSite2.hardware.get("rf4IsShared"));
+		assertEquals("NE", lteSite2.hardware.get("ftif"));
+		assertEquals("", lteSite2.hardware.get("gsmPort"));
+		assertEquals("", lteSite2.hardware.get("umtsPort"));
 	}
 
 }
