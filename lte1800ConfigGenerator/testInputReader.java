@@ -133,7 +133,7 @@ public class TestInputReader {
 		assertEquals("", lteSite0.hardware.get("cell4Ports"));
 		assertEquals("DA", lteSite0.hardware.get("rf1IsShared"));
 		assertEquals("DA", lteSite0.hardware.get("rf2IsShared"));
-		assertEquals("NE", lteSite0.hardware.get("ftif"));
+		assertEquals("DA", lteSite0.hardware.get("ftif"));
 		assertEquals("", lteSite0.hardware.get("gsmPort"));
 		assertEquals("", lteSite0.hardware.get("umtsPort"));
 		assertEquals("", lteSite0.hardware.get("rf3IsShared"));
