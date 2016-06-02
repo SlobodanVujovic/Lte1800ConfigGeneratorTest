@@ -26,9 +26,9 @@ public class TestLteSite {
 		LteSite lteSite1 = listOfAllSites.get(1);
 		LteSite lteSite2 = listOfAllSites.get(2);
 
-		assertEquals(38, lteSite0.uniqueGsmNeighbours.size());
-		assertEquals(34, lteSite1.uniqueGsmNeighbours.size());
-		assertEquals(29, lteSite2.uniqueGsmNeighbours.size());
+		assertEquals(33, lteSite0.uniqueGsmNeighbours.size());
+		assertEquals(23, lteSite1.uniqueGsmNeighbours.size());
+		assertEquals(30, lteSite2.uniqueGsmNeighbours.size());
 	}
 
 	@Test
@@ -37,8 +37,8 @@ public class TestLteSite {
 		LteSite lteSite1 = listOfAllSites.get(1);
 		LteSite lteSite2 = listOfAllSites.get(2);
 
-		assertEquals(31, lteSite0.uniqueBcchOfNeighbours.size());
-		assertEquals(31, lteSite1.uniqueBcchOfNeighbours.size());
-		assertEquals(28, lteSite2.uniqueBcchOfNeighbours.size());
+		assertEquals(30, lteSite0.uniqueBcchOfNeighbours.size());
+		assertEquals(22, lteSite1.uniqueBcchOfNeighbours.size());
+		assertEquals(26, lteSite2.uniqueBcchOfNeighbours.size());
 	}
 }

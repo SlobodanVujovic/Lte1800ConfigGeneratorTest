@@ -836,6 +836,22 @@ public class TestAllConfigFiles {
 		}
 	}
 
+	// @Ignore
+	@Test
+	public void testEditIpno_Twamp() {
+		for (File configFile : allConfigFiles.listOfAllConfigFiles) {
+			lteSite = allConfigFiles.listOfAllSites.get(numberOfSite++);
+			xmlDocument = createXmlDocument(configFile);
+			NodeList itemNodeList = (NodeList) getObjectFromXmlDocument(
+					"//cmData/managedObject[@class=\"IPNO\"]/list[@name=\"twampFlag\"]/item/p[@name=\"twampIpAddress\"]");
+			Node itemNode = itemNodeList.item(0);
+			String itemValue = itemNode.getTextContent();
+			String expected = lteSite.transmission.get("cuDestIp");
+
+			assertEquals(expected, itemValue);
+		}
+	}
+
 	@After
 	public void clean() {
 		File outputDir = new File("C:\\CG output");

@@ -24,18 +24,18 @@ public class TestAllLteSites {
 
 		assertEquals(3, allLteSites.listOfAllSites.size());
 		assertEquals(3, allLteSites.listOfAllSites.get(0).lteCells.size());
-		assertEquals(27, allLteSites.listOfAllSites.get(0).lteCells.get("1").gsmNeighbours.size());
-		assertEquals("BA1081_02/7",
-				allLteSites.listOfAllSites.get(0).lteCells.get("1").gsmNeighbours.get("10812").cellName);
-		assertEquals("2", allLteSites.listOfAllSites.get(0).lteCells.get("1").gsmNeighbours.get("10661").bcch);
-		assertEquals("857", allLteSites.listOfAllSites.get(2).lteCells.get("3").gsmNeighbours.get("11001").bcch);
+		assertEquals(24, allLteSites.listOfAllSites.get(0).lteCells.get("1").gsmNeighbours.size());
+		assertEquals("BG0337_02/6",
+				allLteSites.listOfAllSites.get(0).lteCells.get("1").gsmNeighbours.get("3371").cellName);
+		assertEquals("738", allLteSites.listOfAllSites.get(0).lteCells.get("1").gsmNeighbours.get("3652").bcch);
+		assertEquals("714", allLteSites.listOfAllSites.get(2).lteCells.get("3").gsmNeighbours.get("7222").bcch);
 
-		assertEquals(38, lteSite0.uniqueGsmNeighbours.size());
-		assertEquals(34, lteSite1.uniqueGsmNeighbours.size());
-		assertEquals(29, lteSite2.uniqueGsmNeighbours.size());
-		assertEquals(31, lteSite0.uniqueBcchOfNeighbours.size());
-		assertEquals(31, lteSite1.uniqueBcchOfNeighbours.size());
-		assertEquals(28, lteSite2.uniqueBcchOfNeighbours.size());
+		assertEquals(33, lteSite0.uniqueGsmNeighbours.size());
+		assertEquals(23, lteSite1.uniqueGsmNeighbours.size());
+		assertEquals(30, lteSite2.uniqueGsmNeighbours.size());
+		assertEquals(30, lteSite0.uniqueBcchOfNeighbours.size());
+		assertEquals(22, lteSite1.uniqueBcchOfNeighbours.size());
+		assertEquals(26, lteSite2.uniqueBcchOfNeighbours.size());
 	}
 
 }
